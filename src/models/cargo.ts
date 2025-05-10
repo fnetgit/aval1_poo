@@ -1,7 +1,7 @@
 export class Cargo {
-  name: string
-  type: string
-  weight: number
+  readonly name: string
+  readonly type: string
+  readonly weight: number
 
   constructor(name: string, type: string, weight: number) {
     this.name = name
