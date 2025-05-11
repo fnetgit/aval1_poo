@@ -1,17 +1,31 @@
+import { Planet } from './planet'
+import { SpaceShip } from './spaceShip'
+import { Cargo } from './cargo'
+
 export class Mission {
-    constructor(
-        public planet: Planet,
-        public spaceShip: SpaceShip,
-        public cargo: Cargo
-    ) {}
+  constructor(
+    public planet: Planet,
+    public spaceShip: SpaceShip,
+    public cargoList: Cargo[]
+  ) {}
 
-    canReachPlanet(): boolean {
-        const distance = this.planet.distance;                  // por exemplo: 500 (milhões de km)
-        const fuelConsumption = this.spaceShip.fuelConsumption; // por milhão de km
-        const availableFuel = this.spaceShip.fuel;              // total de combustível
+  canLoadAllCargo(): boolean {
+    const totalWeight = this.cargoList.reduce((sum, c) => sum + c.weight, 0)
+    return totalWeight <= this.spaceShip.capacity
+  }
 
-        const fuelNeeded = distance * fuelConsumption;
+  cargoTypesAllowed(): boolean {
+    return this.cargoList.every(
+      (cargo) =>
+        !this.planet.noAcceptedCargoTypes.includes(cargo.constructor.name)
+    )
+  }
 
-        return availableFuel >= fuelNeeded;
-    }
+  canReachPlanet(): boolean {
+    if (!this.canLoadAllCargo()) return false
+    if (!this.cargoTypesAllowed()) return false
+
+    const fuelNeeded = this.planet.distance * this.spaceShip.fuelConsumption
+    return this.spaceShip.fuel >= fuelNeeded
+  }
 }

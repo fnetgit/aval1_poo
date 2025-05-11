@@ -1,3 +1,3 @@
 import { Cargo } from 'src/models/cargo'
 
-class Ore extends Cargo {}
+export class Ore extends Cargo {}

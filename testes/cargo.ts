@@ -10,11 +10,11 @@ export abstract class Cargo {
   }
 }
 
-class Fauna extends Cargo {}
+export class Fauna extends Cargo {}
 
-class Gases extends Cargo {}
+export class Gases extends Cargo {}
 
-class Liquids extends Cargo {}
+export class Liquids extends Cargo {}
 
-class Ore extends Cargo {}
+export class Ore extends Cargo {}
 

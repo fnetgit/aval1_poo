@@ -1,3 +1,11 @@
 import { Planet } from 'src/models/planet'
 
-class Ocean extends Planet {}
+export class Ocean extends Planet {
+  constructor(
+    name: string,
+    distance: number,
+    noAcceptedCargoTypes: string[] = []
+  ) {
+    super(name, distance, noAcceptedCargoTypes)
+  }
+}

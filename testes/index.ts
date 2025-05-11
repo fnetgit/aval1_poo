@@ -1,10 +1,7 @@
-import { Fauna } from './cargos/fauna'
-import { Gases } from './cargos/gases'
-import { Liquids } from './cargos/liquids'
-import { Ore } from './cargos/ore'
-import { Mission } from './models/mission'
-import { Desert } from './planets/desert'
-import { Freighter } from './space_ships/freighter'
+import { Desert, Ocean, Radioactive } from './planet'
+import { Freighter, Courier, Cruiser, Comander } from './spaceShip'
+import { Fauna, Gases, Liquids, Ore } from './cargo'
+import { Mission } from './mission'
 
 // Criando cargas
 const fish = new Fauna('Tubarão', 'animal', 50)
@@ -22,6 +19,6 @@ const evergreen = new Freighter('Evergreen', 1000, 500, 2)
 const mission = new Mission(gallifrey, evergreen, [fish, goldOre, water])
 
 // testes
-console.log('Cabe tudo?', mission.canLoadAllCargo()) // false se > capacity
+console.log('Cabe tudo?', mission.canLoadAllCargo())          // false se > capacity
 console.log('Tipos permitidos?', mission.cargoTypesAllowed()) // false se cargo proibido
-console.log('Consegue chegar?', mission.canReachPlanet()) // só true se tudo OK
+console.log('Consegue chegar?', mission.canReachPlanet())     // só true se tudo OK

@@ -18,10 +18,10 @@ export abstract class SpaceShip {
 }
 
 // Comandante - Grande que nem o cagueiro e rapido como o runner, mas gasta mais combustível
-class Comander extends SpaceShip {}
+export class Comander extends SpaceShip {}
 
 // Cruzeiro - Nave de médio porte, equilibrando velocidade e capacidade
-class Cruiser extends SpaceShip {}
+export class Cruiser extends SpaceShip {}
 
 // Cargueiro - Nave grande, consegue levar muitas coisas de uma só vez
 export class Freighter extends SpaceShip {
@@ -35,7 +35,5 @@ export class Freighter extends SpaceShip {
   }
 }
 
-const evergreen = new Freighter('evergreen', 100, 600, 1)
-
 // Corredor - Nave nave pequena, mas rápida
-class Courier extends SpaceShip {}
+export class Courier extends SpaceShip {}

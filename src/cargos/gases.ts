@@ -1,3 +1,3 @@
 import { Cargo } from 'src/models/cargo'
 
-class Gases extends Cargo {}
+export class Gases extends Cargo {}

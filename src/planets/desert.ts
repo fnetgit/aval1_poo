@@ -1,7 +1,11 @@
-import { Planet} from 'src/models/planet'
+import { Planet } from 'src/models/planet'
 
-class Desert extends Planet {
-  constructor(name: string, distance: number, noAcceptedCargosTypes:[]) {
-    super(name, distance, noAcceptedCargosTypes)
+export class Desert extends Planet {
+  constructor(
+    name: string,
+    distance: number,
+    noAcceptedCargoTypes: string[] = []
+  ) {
+    super(name, distance, noAcceptedCargoTypes)
   }
 }
