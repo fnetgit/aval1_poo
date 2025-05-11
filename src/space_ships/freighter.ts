@@ -1,4 +1,4 @@
-import { SpaceShip } from 'src/models/spaceShip'
+import { SpaceShip } from '../models/spaceShip'
 
 // Cargueiro - Nave grande, consegue levar muitas coisas de uma só vez
 export class Freighter extends SpaceShip {

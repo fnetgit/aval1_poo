@@ -4,24 +4,31 @@ import { Liquids } from './cargos/liquids'
 import { Ore } from './cargos/ore'
 import { Mission } from './models/mission'
 import { Desert } from './planets/desert'
+import { Ocean } from './planets/ocean'
 import { Freighter } from './space_ships/freighter'
+import { Runner } from './space_ships/runner'
 
-// Criando cargas
-const fish = new Fauna('Tubarão', 'animal', 50)
-const helium = new Gases('Hélio', 'gas', 20)
-const water = new Liquids('Água', 'liquid', 100)
-const goldOre = new Ore('Minério de Ouro', 'ore', 200)
+// Cargas
+const fish = new Fauna('Tubarão', 50)
+const helium = new Gases('Hélio', 20)
+const water = new Liquids('Água', 100)
+const goldOre = new Ore('Minério de Ouro', 200)
+const gasTank = new Gases('Gas Tank', 150)
 
-// Criando planetas
-const gallifrey = new Desert('Gallifrey', 500, ['Gases', 'Liquids'])
+// Planetas
+const gallifrey = new Desert('Gallifrey', 1000, ['Liquids', 'Gases'])
+const tatooine = new Desert('Tatooine', 80, ['Gases'])
+const querty = new Ocean('Querty', 90, ['Radioactive'])
 
-// Criando naves
-const evergreen = new Freighter('Evergreen', 1000, 500, 2)
+// Naves
+const evergreen = new Freighter('Evergreen', 3000, 500, 2)
+const milenium = new Runner('Milenium', 300, 50, 5)
 
-// Criando missions
-const mission = new Mission(gallifrey, evergreen, [fish, goldOre, water])
+// Missões
+const mission1 = new Mission(gallifrey, evergreen, [fish, goldOre, water, gasTank])
+const mission2 = new Mission(tatooine, evergreen, [gasTank])
+const mission3 = new Mission(querty, milenium, [helium, water])
 
-// testes
-console.log('Cabe tudo?', mission.canLoadAllCargo()) // false se > capacity
-console.log('Tipos permitidos?', mission.cargoTypesAllowed()) // false se cargo proibido
-console.log('Consegue chegar?', mission.canReachPlanet()) // só true se tudo OK
+mission1.report()
+mission2.report()
+mission3.report()

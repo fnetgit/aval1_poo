@@ -1,3 +1,3 @@
-import { Cargo } from 'src/models/cargo'
+import { Cargo } from '../models/cargo'
 
 export class Fauna extends Cargo {}

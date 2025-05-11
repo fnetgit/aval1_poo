@@ -1,4 +1,4 @@
-import { SpaceShip } from 'src/models/spaceShip'
+import { SpaceShip } from '../models/spaceShip'
 
 // Corredor - Nave nave pequena, mas rápida
-export class Courier extends SpaceShip {}
+export class Runner extends SpaceShip {}

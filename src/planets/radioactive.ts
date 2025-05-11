@@ -1,4 +1,4 @@
-import { Planet } from 'src/models/planet'
+import { Planet } from '../models/planet'
 
 export class Radioactive extends Planet {
   constructor(
@@ -7,5 +7,9 @@ export class Radioactive extends Planet {
     noAcceptedCargoTypes: string[] = []
   ) {
     super(name, distance, noAcceptedCargoTypes)
+  }
+
+  description(): string {
+    return 'Planeta tomado por forte radiação.'
   }
 }

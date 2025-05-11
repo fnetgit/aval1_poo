@@ -1,4 +1,4 @@
-import { Planet } from 'src/models/planet'
+import { Planet } from '../models/planet'
 
 export class Forest extends Planet {
   constructor(
@@ -7,5 +7,9 @@ export class Forest extends Planet {
     noAcceptedCargoTypes: string[] = []
   ) {
     super(name, distance, noAcceptedCargoTypes)
+  }
+
+  description(): string {
+    return 'Planeta inteiramente preenchido de vida vegetal e não-vegetal.'
   }
 }
