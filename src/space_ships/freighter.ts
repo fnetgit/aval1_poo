@@ -1,0 +1,11 @@
+import { SpaceShip } from 'src/models/spaceShip';
+
+// Cargueiro - Nave grande, consegue levar muitas coisas de uma só vez
+export class Freighter extends SpaceShip {
+  constructor(name: string, fuel: number, capacity: number, fuelConsumption: number) {
+    super(name, fuel, capacity, fuelConsumption);
+  }
+
+}
+
+const evergreen = new Freighter("evergreen", 100, 600, 1);

@@ -1,4 +1,4 @@
-import { spaceShip } from 'src/models/spaceShip'
+import { SpaceShip } from 'src/models/spaceShip'
 
-class Cruiser extends spaceShip {}
 // Cruzeiro - Nave de médio porte, equilibrando velocidade e capacidade
+class Cruiser extends SpaceShip {}

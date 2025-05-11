@@ -1,7 +1,3 @@
-import { Planet } from "./planet";
-import { SpaceShip } from "./spaceShip";
-import { Cargo } from "./cargo";
-
 export class Mission {
     constructor(
         public planet: Planet,
