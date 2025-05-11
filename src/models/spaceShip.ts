@@ -1,4 +1,4 @@
-export class spaceShip {
+export abstract class spaceShip {
   readonly name: string
   readonly fuel: number
   readonly capacity: number

@@ -1,4 +1,4 @@
-export class Cargo {
+export abstract class Cargo {
   readonly name: string
   readonly type: string
   readonly weight: number

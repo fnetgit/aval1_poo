@@ -1,9 +1,7 @@
-import { Planet, planet_type } from 'src/models/planet'
+import { Planet} from 'src/models/planet'
 
 class Desert extends Planet {
-  constructor(name: string, distance: number) {
-    super(name, planet_type.desert, distance)
+  constructor(name: string, distance: number, noAcceptedCargosTypes:[]) {
+    super(name, distance, noAcceptedCargosTypes)
   }
 }
-
-const tatooine = new Desert('tatooine',2)
