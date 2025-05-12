@@ -21,11 +21,16 @@ export class Mission {
     return this.spaceShip.fuel >= fuelNeeded
   }
 
+  canShield(): boolean {
+    return this.spaceShip.shield >= this.planet.requiredShield
+  }
+
   report(): void {
     const totalWeight = this.cargoList.reduce((sum, c) => sum + c.weight, 0)
     const fuelNeeded = this.planet.distance * this.spaceShip.fuelConsumption
     const canLoad = this.canLoadAllCargo()
     const canReach = this.canReachPlanet()
+    const canShield = this.canShield()
     const rejectedCargo = this.planet.getRejectedCargoTypes(this.cargoList)
 
     console.log('============== RELATÓRIO DA MISSÃO ==============')
@@ -33,6 +38,8 @@ export class Mission {
     console.log(`Descrição do planeta: ${this.planet.description()}`)
     console.log(`Nave: ${this.spaceShip.name}`)
     console.log(`Distância: ${this.planet.distance} anos-luz`)
+    console.log(`Blindagem necessária: ${this.planet.requiredShield}`)
+    console.log(`Blindagem disponível: ${this.spaceShip.shield}`)
     console.log(`Combustível necessário: ${fuelNeeded} Kl`)
     console.log(`Combustível disponível: ${this.spaceShip.fuel} Kl`)
     console.log(
@@ -45,16 +52,18 @@ export class Mission {
 
     let statusMensagem = ''
 
-    if (rejectedCargo.length > 0) {
+    if (!canShield) {
+      statusMensagem = `Missão falhou: blindagem insuficiente (precisa ≥ ${this.planet.requiredShield}).`
+    } else if (rejectedCargo.length > 0) {
       const rejectedTypes = rejectedCargo.join(', ')
-      statusMensagem = `Missão falhou porque as seguintes cargas não são aceitas pelo planeta: ${rejectedTypes}.`
-    } else if (canReach) {
-      statusMensagem = 'Missão concluída com sucesso!'
+      statusMensagem = `Missão falhou: tipo cargas não aceitas pelo planeta: ${rejectedTypes}.`
     } else if (!canLoad) {
       statusMensagem = 'Missão falhou: carga excede a capacidade da nave.'
-    } else {
+    } else if (!canReach) {
       statusMensagem =
         'Missão falhou: combustível insuficiente para alcançar o planeta.'
+    } else {
+      statusMensagem = 'Missão concluída com sucesso!'
     }
 
     console.log(`Status: ${statusMensagem}`)

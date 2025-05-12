@@ -4,7 +4,9 @@ export abstract class Planet {
   constructor(
     readonly name: string,
     readonly distance: number,
-    readonly noAcceptedCargoTypes: string[] // ex: ['Gases', 'Radioactive']
+    readonly pression: number,
+    readonly requiredShield: number = 0,
+    readonly noAcceptedCargoTypes: string[] = []
   ) {}
 
   abstract description(): string
