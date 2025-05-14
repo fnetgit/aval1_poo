@@ -4,13 +4,13 @@ export abstract class Planet {
   constructor(
     readonly name: string,
     readonly distance: number,
-    readonly pression: number,
-    readonly requiredShield: number = 0,
+    readonly requiredCoating: number = 0,
     readonly noAcceptedCargoTypes: string[] = []
   ) {}
 
   abstract description(): string
 
+  // entender melhor
   getRejectedCargoTypes(cargoList: Cargo[]): string[] {
     return cargoList
       .filter((cargo) =>

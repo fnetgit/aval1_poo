@@ -4,11 +4,10 @@ export class Forest extends Planet {
   constructor(
     name: string,
     distance: number,
-    pression: number,
-    requiredShield: number = 10,
+    requiredCoating: number = 10,
     noAcceptedCargoTypes: string[] = []
   ) {
-    super(name, distance, pression, requiredShield, noAcceptedCargoTypes)
+    super(name, distance, requiredCoating, noAcceptedCargoTypes)
   }
 
   description(): string {

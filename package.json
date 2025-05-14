@@ -10,7 +10,6 @@
   },
   "scripts": {
     "dev": "clear && ts-node src/index.ts",
-    "dev2": "clear && ts-node testes/index.ts",
     "build": "rm -rf build && tsc"
   }
 }

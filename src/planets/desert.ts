@@ -4,14 +4,13 @@ export class Desert extends Planet {
   constructor(
     name: string,
     distance: number,
-    pression: number,
-    requiredShield: number = 15,
+    requiredCoating: number = 15,
     noAcceptedCargoTypes: string[] = []
   ) {
-    super(name, distance, pression, requiredShield, noAcceptedCargoTypes)
+    super(name, distance, requiredCoating, noAcceptedCargoTypes)
   }
 
   description(): string {
-    return 'Planeta seco, calor extremo, sem vegetação na superfície.'
+    return 'Planeta seco, sem vegetação na superfície.'
   }
 }

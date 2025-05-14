@@ -1,6 +1,6 @@
+import { Cargo } from './cargo'
 import { Planet } from './planet'
 import { SpaceShip } from './spaceShip'
-import { Cargo } from './cargo'
 
 export class Mission {
   constructor(
@@ -9,64 +9,82 @@ export class Mission {
     public cargoList: Cargo[]
   ) {}
 
+  get totalWeight(): number {
+    return this.cargoList.reduce((sum, c) => sum + c.weight, 0)
+  }
+
+  get fuelNeeded(): number {
+    return this.planet.distance * this.spaceShip.fuelConsumption
+  }
+
+  get travelTimeDays(): number {
+    return this.planet.distance / this.spaceShip.speed
+  }
+
   canLoadAllCargo(): boolean {
-    const totalWeight = this.cargoList.reduce((sum, c) => sum + c.weight, 0)
-    return totalWeight <= this.spaceShip.capacity
+    return this.totalWeight <= this.spaceShip.capacity
   }
 
   canReachPlanet(): boolean {
-    if (!this.canLoadAllCargo()) return false
-
-    const fuelNeeded = this.planet.distance * this.spaceShip.fuelConsumption
-    return this.spaceShip.fuel >= fuelNeeded
+    return this.canLoadAllCargo() && this.spaceShip.fuel >= this.fuelNeeded
   }
 
-  canShield(): boolean {
-    return this.spaceShip.shield >= this.planet.requiredShield
+  meetsCoatingRequirement(): boolean {
+    return this.spaceShip.coating >= this.planet.requiredCoating
+  }
+
+  getStatusMessage(): string {
+    const rejected = this.planet.getRejectedCargoTypes(this.cargoList)
+
+    if (!this.meetsCoatingRequirement()) {
+      return `Missão falhou: revestimento insuficiente (precisa ≥ ${this.planet.requiredCoating}).`
+    }
+    if (rejected.length > 0) {
+      return `Missão falhou: tipos de carga não aceitos: ${rejected.join(
+        ', '
+      )}.`
+    }
+    if (!this.canLoadAllCargo()) {
+      return 'Missão falhou: carga excede a capacidade da nave.'
+    }
+    if (!this.canReachPlanet()) {
+      return 'Missão falhou: combustível insuficiente para alcançar o planeta.'
+    }
+    return 'Missão concluída com sucesso!'
+  }
+
+  formatReport(): string {
+    const lines: string[] = []
+
+    lines.push('============== RELATÓRIO DA MISSÃO ==============')
+    lines.push(`Planeta de destino: ${this.planet.name}`)
+    lines.push(`Descrição: ${this.planet.description()}`)
+    lines.push(`Nave: ${this.spaceShip.name}`)
+    lines.push(`Distância: ${this.planet.distance} anos-luz`)
+    lines.push(
+      `Tempo estimado de viagem: ${this.travelTimeDays} dias` +
+        ` (velocidade ${this.spaceShip.speed} ano-luz/dia)`
+    )
+    lines.push(
+      `Revestimento: necessário ${this.planet.requiredCoating}, disponível ${this.spaceShip.coating}`
+    )
+    lines.push(
+      `Combustível: necessário ${this.fuelNeeded} L, disponível ${this.spaceShip.fuel} L`
+    )
+    lines.push(
+      `Peso das cargas: ${this.totalWeight} / ${this.spaceShip.capacity} Kg`
+    )
+    lines.push('Itens de carga:')
+    this.cargoList.forEach((c, i) =>
+      lines.push(`  ${i + 1}. ${c.name} - ${c.weight} Kg`)
+    )
+    lines.push(`Status: ${this.getStatusMessage()}`)
+    lines.push('=====================================================')
+
+    return lines.join('\n') + '\n\n'
   }
 
   report(): void {
-    const totalWeight = this.cargoList.reduce((sum, c) => sum + c.weight, 0)
-    const fuelNeeded = this.planet.distance * this.spaceShip.fuelConsumption
-    const canLoad = this.canLoadAllCargo()
-    const canReach = this.canReachPlanet()
-    const canShield = this.canShield()
-    const rejectedCargo = this.planet.getRejectedCargoTypes(this.cargoList)
-
-    console.log('============== RELATÓRIO DA MISSÃO ==============')
-    console.log(`Planeta de destino: ${this.planet.name}`)
-    console.log(`Descrição do planeta: ${this.planet.description()}`)
-    console.log(`Nave: ${this.spaceShip.name}`)
-    console.log(`Distância: ${this.planet.distance} anos-luz`)
-    console.log(`Blindagem necessária: ${this.planet.requiredShield}`)
-    console.log(`Blindagem disponível: ${this.spaceShip.shield}`)
-    console.log(`Combustível necessário: ${fuelNeeded} Kl`)
-    console.log(`Combustível disponível: ${this.spaceShip.fuel} Kl`)
-    console.log(
-      `Peso total das cargas: ${totalWeight} / ${this.spaceShip.capacity} Kg`
-    )
-    console.log('Itens de carga:')
-    this.cargoList.forEach((cargo, index) => {
-      console.log(`   ${index + 1}. ${cargo.name} - ${cargo.weight} Kg`)
-    })
-
-    let statusMensagem = ''
-
-    if (!canShield) {
-      statusMensagem = `Missão falhou: blindagem insuficiente (precisa ≥ ${this.planet.requiredShield}).`
-    } else if (rejectedCargo.length > 0) {
-      const rejectedTypes = rejectedCargo.join(', ')
-      statusMensagem = `Missão falhou: tipo cargas não aceitas pelo planeta: ${rejectedTypes}.`
-    } else if (!canLoad) {
-      statusMensagem = 'Missão falhou: carga excede a capacidade da nave.'
-    } else if (!canReach) {
-      statusMensagem =
-        'Missão falhou: combustível insuficiente para alcançar o planeta.'
-    } else {
-      statusMensagem = 'Missão concluída com sucesso!'
-    }
-
-    console.log(`Status: ${statusMensagem}`)
-    console.log('=====================================================\n')
+    console.log(this.formatReport())
   }
 }
