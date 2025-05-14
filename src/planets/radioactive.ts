@@ -4,7 +4,7 @@ export class Radioactive extends Planet {
   constructor(
     name: string,
     distance: number,
-    requiredCoating: number = 50,
+    requiredCoating: number = 45,
     noAcceptedCargoTypes: string[] = []
   ) {
     super(name, distance, requiredCoating, noAcceptedCargoTypes)

@@ -11,6 +11,6 @@ export class Forest extends Planet {
   }
 
   description(): string {
-    return 'Planeta inteiramente preenchido de vida vegetal e não-vegetal.'
+    return 'Planeta coberto por extensa vida vegetal.'
   }
 }

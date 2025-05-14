@@ -1,9 +1,9 @@
 import { SpaceShip } from '../models/spaceShip'
 
-// Comandante - Grande que nem o cagueiro e rápido como o runner, mas gasta mais combustível
+// Comandante - Grande que nem o cagueiro e rápido como o corredor, mas gasta mais combustível
 export class Commander extends SpaceShip {
   static readonly DEFAULT_FUEL = 1200
-  static readonly DEFAULT_CAPACITY = 400
+  static readonly DEFAULT_CAPACITY = 1000
   static readonly DEFAULT_SPEED = 25
   static readonly DEFAULT_CONSUMPTION = 8
   static readonly DEFAULT_COATING = 70

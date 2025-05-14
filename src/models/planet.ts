@@ -10,7 +10,6 @@ export abstract class Planet {
 
   abstract description(): string
 
-  // entender melhor
   getRejectedCargoTypes(cargoList: Cargo[]): string[] {
     return cargoList
       .filter((cargo) =>

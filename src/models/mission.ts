@@ -62,14 +62,16 @@ export class Mission {
     lines.push(`Nave: ${this.spaceShip.name}`)
     lines.push(`Distância: ${this.planet.distance} anos-luz`)
     lines.push(
-      `Tempo estimado de viagem: ${this.travelTimeDays} dias` +
-        ` (velocidade ${this.spaceShip.speed} ano-luz/dia)`
+      `Tempo estimado de viagem: ${Math.ceil(this.travelTimeDays)} dias` +
+        ` (velocidade ${this.spaceShip.speed} anos-luz/dia)`
     )
     lines.push(
       `Revestimento: necessário ${this.planet.requiredCoating}, disponível ${this.spaceShip.coating}`
     )
     lines.push(
-      `Combustível: necessário ${this.fuelNeeded} L, disponível ${this.spaceShip.fuel} L`
+      `Combustível: necessário ${this.fuelNeeded.toFixed(
+        2
+      )} L, disponível ${this.spaceShip.fuel.toFixed(2)} L`
     )
     lines.push(
       `Peso das cargas: ${this.totalWeight} / ${this.spaceShip.capacity} Kg`
