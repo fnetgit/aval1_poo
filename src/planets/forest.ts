@@ -1,16 +1,17 @@
 import { Planet } from '../models/planet'
 
 export class Forest extends Planet {
+  static readonly DEFAULT_REQUIRED_COATING = 5
+
   constructor(
     name: string,
     distance: number,
-    requiredCoating: number = 10,
     noAcceptedCargoTypes: string[] = []
   ) {
-    super(name, distance, requiredCoating, noAcceptedCargoTypes)
+    super(name, distance, Forest.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
   }
 
   description(): string {
-    return 'Planeta coberto por extensa vida vegetal.'
+    return 'Planeta coberto por grandes florestas e vegetação.'
   }
 }

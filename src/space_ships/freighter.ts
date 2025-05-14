@@ -5,7 +5,7 @@ export class Freighter extends SpaceShip {
   static readonly DEFAULT_FUEL = 1000
   static readonly DEFAULT_CAPACITY = 1000
   static readonly DEFAULT_SPEED = 15
-  static readonly DEFAULT_CONSUMPTION = 10
+  static readonly DEFAULT_CONSUMPTION = 6
   static readonly DEFAULT_COATING = 60
 
   constructor(name: string) {

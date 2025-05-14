@@ -6,7 +6,11 @@ import { Commander } from '../space_ships/commander'
 
 export const ships = [
   new Runner('Raptor'),
+  new Runner('Falcon'),
   new Freighter('Evergreen'),
+  new Freighter('Tank-5'),
   new Cruiser('Odyssey'),
+  new Cruiser('Elegant'),
   new Commander('Titan'),
+  new Commander('Big Bird'),
 ]

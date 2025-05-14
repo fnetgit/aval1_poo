@@ -1,16 +1,17 @@
 import { Planet } from '../models/planet'
 
 export class Radioactive extends Planet {
+  static readonly DEFAULT_REQUIRED_COATING = 30
+
   constructor(
     name: string,
     distance: number,
-    requiredCoating: number = 45,
     noAcceptedCargoTypes: string[] = []
   ) {
-    super(name, distance, requiredCoating, noAcceptedCargoTypes)
+    super(name, distance, Radioactive.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
   }
 
   description(): string {
-    return 'Planeta tomado por forte radiação.'
+    return 'Planeta altamente radioativo, perigoso para a maioria das formas de vida.'
   }
 }

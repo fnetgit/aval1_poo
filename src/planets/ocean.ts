@@ -1,16 +1,17 @@
 import { Planet } from '../models/planet'
 
 export class Ocean extends Planet {
+  static readonly DEFAULT_REQUIRED_COATING = 40
+
   constructor(
     name: string,
     distance: number,
-    requiredCoating: number = 20,
     noAcceptedCargoTypes: string[] = []
   ) {
-    super(name, distance, requiredCoating, noAcceptedCargoTypes)
+    super(name, distance, Ocean.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
   }
 
   description(): string {
-    return 'Planeta completamente alagado, tudo se encontra submerso.'
+    return 'Planeta coberto por vastos oceanos.'
   }
 }

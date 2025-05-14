@@ -1,13 +1,14 @@
 import { Planet } from '../models/planet'
 
 export class Desert extends Planet {
+  static readonly DEFAULT_REQUIRED_COATING = 15
+  
   constructor(
     name: string,
     distance: number,
-    requiredCoating: number = 15,
     noAcceptedCargoTypes: string[] = []
   ) {
-    super(name, distance, requiredCoating, noAcceptedCargoTypes)
+    super(name, distance, Desert.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
   }
 
   description(): string {
