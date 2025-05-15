@@ -11,10 +11,8 @@ export abstract class Planet {
   abstract description(): string
 
   getRejectedCargoTypes(cargoList: Cargo[]): string[] {
-    return cargoList
-      .filter((cargo) =>
-        this.noAcceptedCargoTypes.includes(cargo.constructor.name)
-      )
-      .map((cargo) => cargo.constructor.name)
+    const names = cargoList.map((cargo) => cargo.constructor.name)
+    const rejected = names.filter((name) => this.noAcceptedCargoTypes.includes(name))
+    return [...new Set(rejected)]
   }
 }

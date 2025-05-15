@@ -4,13 +4,16 @@ import { SpaceShip } from './spaceShip'
 
 export class Mission {
   constructor(
-    public planet: Planet,
-    public spaceShip: SpaceShip,
-    public cargoList: Cargo[]
+    public readonly planet: Planet,
+    public readonly spaceShip: SpaceShip,
+    public readonly cargoList: Cargo[]
   ) {}
 
   get totalWeight(): number {
-    return this.cargoList.reduce((sum, c) => sum + c.weight, 0)
+    return this.cargoList.reduce(
+      (totalWeight, cargo) => totalWeight + cargo.weight,
+      0
+    )
   }
 
   get fuelNeeded(): number {
@@ -26,7 +29,7 @@ export class Mission {
   }
 
   canReachPlanet(): boolean {
-    return this.canLoadAllCargo() && this.spaceShip.fuel >= this.fuelNeeded
+    return this.spaceShip.fuel >= this.fuelNeeded
   }
 
   meetsCoatingRequirement(): boolean {
@@ -34,23 +37,32 @@ export class Mission {
   }
 
   getStatusMessage(): string {
+    const messages: string[] = []
     const rejected = this.planet.getRejectedCargoTypes(this.cargoList)
 
     if (!this.meetsCoatingRequirement()) {
-      return `Missão falhou: revestimento insuficiente (precisa ≥ ${this.planet.requiredCoating}).`
+      messages.push(
+        `Revestimento insuficiente (precisa ≥ ${this.planet.requiredCoating}).`
+      )
     }
+
     if (rejected.length > 0) {
-      return `Missão falhou: tipos de carga não aceitos: ${rejected.join(
-        ', '
-      )}.`
+      messages.push(`Tipos de carga não aceitos: ${rejected.join(', ')}.`)
     }
+
     if (!this.canLoadAllCargo()) {
-      return 'Missão falhou: carga excede a capacidade da nave.'
+      messages.push('Carga excede a capacidade da nave.')
     }
+
     if (!this.canReachPlanet()) {
-      return 'Missão falhou: combustível insuficiente para alcançar o planeta.'
+      messages.push('Combustível insuficiente para alcançar o planeta.')
     }
-    return 'Missão concluída com sucesso!'
+
+    if (messages.length === 0) {
+      return 'Missão concluída com sucesso!'
+    }
+
+    return 'Missão falhou:\n- ' + messages.join('\n- ')
   }
 
   formatReport(): string {
@@ -77,8 +89,8 @@ export class Mission {
       `Peso das cargas: ${this.totalWeight} / ${this.spaceShip.capacity} Kg`
     )
     lines.push('Itens de carga:')
-    this.cargoList.forEach((c, i) =>
-      lines.push(`  ${i + 1}. ${c.name} - ${c.weight} Kg`)
+    this.cargoList.forEach((cargo, i) =>
+      lines.push(`  ${i + 1}. ${cargo.name} - ${cargo.weight} Kg`)
     )
     lines.push(`Status: ${this.getStatusMessage()}`)
     lines.push('=====================================================')
