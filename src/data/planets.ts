@@ -1,7 +1,7 @@
-import { Desert } from '../planets/desert'
-import { Forest } from '../planets/forest'
-import { Ocean } from '../planets/ocean'
-import { Radioactive } from '../planets/radioactive'
+import { Desert } from '../implementations/planets/desert'
+import { Forest } from '../implementations/planets/forest'
+import { Ocean } from '../implementations/planets/ocean'
+import { Radioactive } from '../implementations/planets/radioactive'
 
 export const planets = [
   new Desert('Tatooine', 80, ['Liquids', 'Gases']),

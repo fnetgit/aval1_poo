@@ -1,4 +1,4 @@
-import { Planet } from '../models/planet'
+import { Planet } from '../../models/planet'
 
 export class Forest extends Planet {
   static readonly DEFAULT_REQUIRED_COATING = 5

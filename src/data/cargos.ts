@@ -1,8 +1,8 @@
-import { Fauna } from '../cargos/fauna'
-import { Gases } from '../cargos/gases'
-import { Liquids } from '../cargos/liquids'
-import { Ore } from '../cargos/ore'
-import { RadioactiveMaterials } from '../cargos/radioactiveMaterials'
+import { Fauna } from '../implementations/cargos/fauna'
+import { Gases } from '../implementations/cargos/gases'
+import { Liquids } from '../implementations/cargos/liquids'
+import { Ore } from '../implementations/cargos/ore'
+import { RadioactiveMaterials } from '../implementations/cargos/radioactiveMaterials'
 
 export const cargos = [
   new Fauna('Tubarão', 50),

@@ -1,4 +1,4 @@
-import { SpaceShip } from '../models/spaceShip'
+import { SpaceShip } from '../../models/spaceShip'
 
 // Comandante - Grande que nem o cagueiro e rápido como o corredor, mas gasta mais combustível
 export class Commander extends SpaceShip {

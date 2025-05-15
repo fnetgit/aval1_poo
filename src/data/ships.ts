@@ -1,8 +1,7 @@
-// src/data/ships.ts
-import { Runner } from '../space_ships/runner'
-import { Freighter } from '../space_ships/freighter'
-import { Cruiser } from '../space_ships/cruiser'
-import { Commander } from '../space_ships/commander'
+import { Commander } from '../implementations/space_ships/commander'
+import { Cruiser } from '../implementations/space_ships/cruiser'
+import { Freighter } from '../implementations/space_ships/freighter'
+import { Runner } from '../implementations/space_ships/runner'
 
 export const ships = [
   new Runner('Raptor'),
