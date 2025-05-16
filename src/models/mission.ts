@@ -6,7 +6,7 @@ export class Mission {
   constructor(
     public readonly planet: Planet,
     public readonly spaceShip: SpaceShip,
-    public readonly cargoList: Cargo[]
+    private cargoList: Cargo[]
   ) {}
 
   get totalWeight(): number {
@@ -36,7 +36,7 @@ export class Mission {
     return this.spaceShip.coating >= this.planet.requiredCoating
   }
 
-  getStatusMessage(): string {
+  get statusMessage(): string {
     const messages: string[] = []
     const rejected = this.planet.getRejectedCargoTypes(this.cargoList)
 
@@ -92,7 +92,7 @@ export class Mission {
     this.cargoList.forEach((cargo, i) =>
       lines.push(`  ${i + 1}. ${cargo.name} - ${cargo.weight} Kg`)
     )
-    lines.push(`Status: ${this.getStatusMessage()}`)
+    lines.push(`Status: ${this.statusMessage}`)
     lines.push('=====================================================')
 
     return lines.join('\n') + '\n\n'

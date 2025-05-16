@@ -5,14 +5,21 @@ export abstract class Planet {
     readonly name: string,
     readonly distance: number,
     readonly requiredCoating: number = 0,
-    readonly noAcceptedCargoTypes: string[] = []
+    private rejectedCargoTypes: string[] = []
   ) {}
 
   abstract description(): string
 
   getRejectedCargoTypes(cargoList: Cargo[]): string[] {
-    const names = cargoList.map((cargo) => cargo.constructor.name)
-    const rejected = names.filter((name) => this.noAcceptedCargoTypes.includes(name))
-    return [...new Set(rejected)]
+    const result: string[] = []
+
+    for (const cargo of cargoList) {
+      const cargoType = cargo.constructor.name
+      if (this.rejectedCargoTypes.includes(cargoType) && !result.includes(cargoType)) {
+        result.push(cargoType)
+      }
+    }
+
+    return result
   }
 }

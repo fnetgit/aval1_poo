@@ -6,9 +6,9 @@ export class Desert extends Planet {
   constructor(
     name: string,
     distance: number,
-    noAcceptedCargoTypes: string[] = []
+    rejectedCargoTypes: string[] = []
   ) {
-    super(name, distance, Desert.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
+    super(name, distance, Desert.DEFAULT_REQUIRED_COATING, rejectedCargoTypes)
   }
 
   description(): string {

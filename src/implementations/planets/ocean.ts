@@ -6,9 +6,9 @@ export class Ocean extends Planet {
   constructor(
     name: string,
     distance: number,
-    noAcceptedCargoTypes: string[] = []
+    rejectedCargoTypes: string[] = []
   ) {
-    super(name, distance, Ocean.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
+    super(name, distance, Ocean.DEFAULT_REQUIRED_COATING, rejectedCargoTypes)
   }
 
   description(): string {

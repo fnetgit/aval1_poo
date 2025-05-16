@@ -6,9 +6,9 @@ export class Forest extends Planet {
   constructor(
     name: string,
     distance: number,
-    noAcceptedCargoTypes: string[] = []
+    rejectedCargoTypes: string[] = []
   ) {
-    super(name, distance, Forest.DEFAULT_REQUIRED_COATING, noAcceptedCargoTypes)
+    super(name, distance, Forest.DEFAULT_REQUIRED_COATING, rejectedCargoTypes)
   }
 
   description(): string {
