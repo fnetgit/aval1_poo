@@ -1,32 +1,54 @@
 import { TaskContract } from "./taskContract";
 
 export class TaskManager<T extends TaskContract> {
-  private tasks = new Map<string, T>();
+  private tasks: T[] = [];
+  constructor() { }
 
-  addTask(task: T): void {
-    if (this.tasks.has(task.getDescription())) {
-      throw new Error(
-        `Tarefa com a descrição "${task.getDescription()}" já existe.`
-      );
+  addTask(task: T) {
+    this.tasks.push(task);
+  }
+
+  completeTask(description: string): string {
+    const task = this.tasks.find((task) => task.description === description);
+
+    if (!task) {
+      return `Tarefa com a descrição "${description}" não foi encontrada.`;
     }
-    this.tasks.set(task.getDescription(), task);
+
+    if (task.isCompleted) {
+      return `Tarefa "${description}" já havia sido completada anteriormente.`;
+    }
+
+    return task.complete();
+  }
+
+  listCompletedTasks(): T[] {
+    return this.tasks.filter((task) => task.isCompleted);
   }
 
   listByPriority(): T[] {
-    return Array.from(this.tasks.values()).sort(
-      (a, b) => a.getPriority() - b.getPriority()
-    );
+    const activeTasks = this.tasks.filter((task) => !task.isCompleted);
+    activeTasks.sort((a, b) => a.priority - b.priority);
+    return activeTasks;
   }
 
   filterByPriority(priority: number): T[] {
-    return Array.from(this.tasks.values()).filter(
-      (task) => task.getPriority() === priority
+    const activeTasks = this.tasks.filter((task) => !task.isCompleted);
+
+    const filteredTasks = activeTasks.filter(
+      (task) => task.priority === priority
     );
+    return filteredTasks;
   }
 
-  searchByDescription(description: string): T[] {
-    return Array.from(this.tasks.values()).filter((task) =>
-      task.getDescription().includes(description)
-    );
+  searchByDescription(searchTerm: string): T[] {
+    const activeTasks = this.tasks.filter((task) => !task.isCompleted);
+
+    const foundTasks = activeTasks.filter((task) => {
+      const taskDescription = task.description.toLowerCase();
+      const searchTermLower = searchTerm.toLowerCase();
+      return taskDescription.includes(searchTermLower);
+    });
+    return foundTasks;
   }
 }

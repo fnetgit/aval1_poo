@@ -1,33 +1,57 @@
-import { TaskManager } from "./taskManager";
 import { PersonalTask } from "./personalTask";
+import { TaskManager } from "./taskManager";
 import { WorkTask } from "./workTask";
+import { TaskContract } from "./taskContract";
 
-const taskManager = new TaskManager<PersonalTask>();
+function displayTasksByPriority(manager: TaskManager<TaskContract>) {
+    console.log("--- Lista de Tarefas por Prioridade ---");
+    const tasks = manager.listByPriority();
 
-let workTask1 = new WorkTask("Reunião com grupo do trabalho do Átila", 2);
-let workTask2 = new WorkTask("Fazer atividade do Baluz", 3);
-let personalTask1 = new PersonalTask("Limpar cozinha", 1);
-let personalTask2 = new PersonalTask("Limpar quarto", 1);
+    if (tasks.length === 0) {
+        console.log("Nenhuma tarefa ativa para listar.");
+        return;
+    }
 
-taskManager.addTask(workTask1);
-taskManager.addTask(workTask2);
-taskManager.addTask(personalTask1);
-taskManager.addTask(personalTask2);
+    tasks.forEach((task) => {
+        console.log(`Prioridade: ${task.priority} - ${task.description}`);
+    });
+}
 
-console.log("Listando tarefas por ordem de prioridade");
-taskManager.listByPriority().forEach(task => console.log(task.getPriority(), task.getDescription()));
+function displayTaskList(title: string, tasks: TaskContract[]) {
+    console.log(title);
 
-console.log("-".repeat(30));
+    if (tasks.length === 0) {
+        console.log("Nenhuma tarefa encontrada para esta categoria.");
+        return;
+    }
 
-console.log("Buscando tarefas por descrição");
-taskManager.searchByDescription("Limpar quarto").forEach(task => console.log(task.getPriority(), task.getDescription()));
+    tasks.forEach((task) => {
+        console.log(task.description);
+    });
+}
 
-console.log("-".repeat(30));
 
-console.log("Buscando tarefas por prioridade específica");
-taskManager.filterByPriority(1).forEach(task => console.log(task.getPriority(), task.getDescription()));
+const taskManager = new TaskManager<PersonalTask | WorkTask>();
 
-console.log("-".repeat(30));
+taskManager.addTask(new WorkTask("Estudar para a prova do Átila", 2));
+taskManager.addTask(new PersonalTask("Limpar quarto", 2));
+taskManager.addTask(new PersonalTask("Limpar cozinha", 1));
+taskManager.addTask(new PersonalTask("Passar roupas", 1));
+taskManager.addTask(new WorkTask("Fazer trabalho do Baluz", 3));
+taskManager.addTask(new WorkTask("Fazer trabalho interdisciplinar", 3));
 
-console.log(workTask1.complete());
-console.log(personalTask1.complete());
+displayTasksByPriority(taskManager);
+
+const completionMessage = taskManager.completeTask("Limpar cozinha");
+console.log(`\n${completionMessage}\n`);
+
+displayTasksByPriority(taskManager);
+
+const priority3Tasks = taskManager.filterByPriority(3);
+displayTaskList("\n--- Filtrando Tarefas com Prioridade ---", priority3Tasks);
+
+const foundTasks = taskManager.searchByDescription("limpar");
+displayTaskList("\n--- Buscando por descrição específica ---", foundTasks);
+
+const completedTasks = taskManager.listCompletedTasks();
+displayTaskList("\n--- Lista de Tarefas Concluídas ---", completedTasks);

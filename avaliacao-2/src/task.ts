@@ -1,21 +1,23 @@
 import { TaskContract } from "./taskContract";
 
 export abstract class Task implements TaskContract {
-  private description: string;
-  protected priority: number;
+  private _isCompleted: boolean = false;
+  constructor(private _description: string, protected _priority: number) { }
 
-  constructor(description: string, priority: number) {
-    this.description = description;
-    this.priority = priority;
+  public get description(): string {
+    return this._description;
   }
 
-  getDescription(): string {
-    return this.description;
+  public get priority(): number {
+    return this._priority;
   }
 
-  getPriority(): number {
-    return this.priority;
+  public get isCompleted(): boolean {
+    return this._isCompleted;
   }
 
-  abstract complete(): string;
+  public complete(): string {
+    this._isCompleted = true;
+    return `Tarefa '${this.description}' foi completada.`;
+  }
 }
