@@ -1,0 +1,16 @@
+{
+  "name": "prova",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": "Francisco Neto <netofrancisco.pro@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "dev": "clear && ts-node src/main.ts",
+    "build": "rm -rf build && tsc"
+  }
+}
